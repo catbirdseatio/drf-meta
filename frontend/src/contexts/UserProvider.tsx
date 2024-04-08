@@ -38,7 +38,7 @@ const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     })();
   }, [API, getUser]);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string | undefined, password: string) => {
     try {
       const result = await API.login(email, password);
       if (result) {

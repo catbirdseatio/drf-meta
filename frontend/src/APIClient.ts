@@ -67,7 +67,7 @@ export default class APIClient {
   post = (endpoint: string, data: object): Promise<AxiosResponse> =>
     axiosInstance.post(endpoint, data);
 
-  login = async (email: string | undefined, password: string): Promise<boolean> => {
+  login = async (email: string, password: string): Promise<boolean> => {
     // Login to user with the login endpoint. Successful login adds the
     // JWT tokens in localstorage and returns true; unsuccessful login returns
     // false.

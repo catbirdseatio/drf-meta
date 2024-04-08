@@ -11,7 +11,7 @@ type FormErrors = {
 }
 
 const LoginPage = () => {
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const emailField = useRef<HTMLInputElement| null>(null);
   const passwordField = useRef<HTMLInputElement | null>(null);
   const { login } = useUser();
