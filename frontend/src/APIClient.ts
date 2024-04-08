@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
       // Call your endpoint to refresh the token
       const refresh = localStorage.getItem("refresh");
       try {
-        const response: AxiosResponse<any> = await axios.post(`${baseURL}/accounts/jwt/refresh`, {
+        const response: AxiosResponse = await axios.post(`${baseURL}/accounts/jwt/refresh`, {
           refresh,
         });
 
@@ -55,21 +55,21 @@ axiosInstance.interceptors.response.use(
 );
 
 export default class APIClient {
-  get = (endpoint: string): Promise<AxiosResponse<any>> => axiosInstance.get(endpoint);
+  get = (endpoint: string): Promise<AxiosResponse> => axiosInstance.get(endpoint);
 
-  post = (endpoint: string, data: any): Promise<AxiosResponse<any>> => axiosInstance.post(endpoint, data);
+  post = (endpoint: string, data: object): Promise<AxiosResponse> => axiosInstance.post(endpoint, data);
 
   login = async (email: string, password: string): Promise<boolean> => {
     // Login to user with the login endpoint. Successful login adds the
     // JWT tokens in localstorage and returns true; unsuccessful login returns
     // false.
     try {
-      const { data }: AxiosResponse<any> = await this.post("accounts/jwt/create", {
+      const response: AxiosResponse = await this.post("accounts/jwt/create", {
         email,
         password,
       });
-      
-      const { refresh, access } = data;
+      console.log(response)
+      const { refresh, access } = response.data;
       localStorage.setItem("refresh", refresh);
       localStorage.setItem("access", access);
       return true;
@@ -79,7 +79,10 @@ export default class APIClient {
     }
   };
 
-  isAuthenticated = (): boolean => localStorage.getItem("access") !== null;
+  isAuthenticated = (): boolean => {
+    const token = localStorage.getItem("access");
+    return token !== null;
+  };
 
   logout = (): void => localStorage.clear();
 }

@@ -16,10 +16,10 @@ type ProviderProps = {
 
 const APIProvider: React.FC<ProviderProps> = ({ children }) => {
   // Initialize your API client
-  const api = new APIClient();
+  const{ post, get, login, logout, isAuthenticated } = new APIClient();
 
   return (
-    <APIContext.Provider value={{ ...api }}>
+    <APIContext.Provider value={{ post, get, login, logout, isAuthenticated }}>
       {children}
     </APIContext.Provider>
   );
