@@ -20,5 +20,4 @@ class TestIndex:
 
     def test_unauthenticated_get_403(self, api_client):
         response = api_client.get(self.url)
-        print(response)
         assert response.status_code == status.HTTP_403_FORBIDDEN

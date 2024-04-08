@@ -1,8 +1,13 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
+// Retrieve baseURL from process.env
 const baseURL = import.meta.env.VITE_API_URL;
 
-const axiosInstance = axios.create({
+if (!baseURL) {
+  throw new Error("REACT_APP_API_URL is not defined in the environment variables.");
+}
+
+const axiosInstance: AxiosInstance = axios.create({
   baseURL,
 });
 
@@ -31,7 +36,7 @@ axiosInstance.interceptors.response.use(
       // Call your endpoint to refresh the token
       const refresh = localStorage.getItem("refresh");
       try {
-        const response = await axios.post(`${baseURL}/accounts/jwt/refresh`, {
+        const response: AxiosResponse<any> = await axios.post(`${baseURL}/accounts/jwt/refresh`, {
           refresh,
         });
 
@@ -50,16 +55,16 @@ axiosInstance.interceptors.response.use(
 );
 
 export default class APIClient {
-  get = (endpoint) => axiosInstance.get(endpoint);
+  get = (endpoint: string): Promise<AxiosResponse<any>> => axiosInstance.get(endpoint);
 
-  post = (endpoint, data) => axiosInstance.post(endpoint, data);
+  post = (endpoint: string, data: any): Promise<AxiosResponse<any>> => axiosInstance.post(endpoint, data);
 
-  login = async (email, password) => {
+  login = async (email: string, password: string): Promise<boolean> => {
     // Login to user with the login endpoint. Successful login adds the
     // JWT tokens in localstorage and returns true; unsuccessful login returns
     // false.
     try {
-      const { data } = await this.post("accounts/jwt/create", {
+      const { data }: AxiosResponse<any> = await this.post("accounts/jwt/create", {
         email,
         password,
       });
@@ -74,7 +79,7 @@ export default class APIClient {
     }
   };
 
-  isAuthenticated = () => localStorage.getItem("access") !== null;
+  isAuthenticated = (): boolean => localStorage.getItem("access") !== null;
 
-  logout = () => localStorage.clear();
+  logout = (): void => localStorage.clear();
 }

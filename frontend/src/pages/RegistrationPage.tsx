@@ -4,7 +4,7 @@ import InputField from "../components/InputField";
 import { useFlash } from "../contexts/FlashProvider";
 import { useAPI } from "../contexts/APIProvider";
 
-const validateEmail = (email) => {
+const validateEmail = (email: string) => {
   // Regular expression pattern for validating email addresses
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -12,20 +12,20 @@ const validateEmail = (email) => {
 
 const RegistrationPage = () => {
   const [formErrors, setFormErrors] = useState({});
-  const emailField = useRef();
-  const passwordField = useRef();
+  const emailField = useRef<HTMLInputElement>(null);
+  const passwordField = useRef<HTMLInputElement>(null);
   const API = useAPI();
   const navigate = useNavigate();
   const flash = useFlash();
 
   useEffect(() => {
-    emailField.current.focus();
+    emailField.current?.focus();
   }, []);
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const email = emailField.current.value;
-    const password = passwordField.current.value;
+    const email = emailField.current?.value;
+    const password = passwordField.current?.value;
     const errors = {};
 
     if (!email) errors.email = "Email must not be empty.";
