@@ -1,9 +1,14 @@
 import React, { createContext, useContext } from "react";
+import { AxiosResponse } from "axios";
 import APIClient from "../APIClient";
 
 // Define the type for your context value
 interface APIContextType {
-  api: APIClient;
+  get: (endpoint: string) => Promise<AxiosResponse>;
+  post: (endpoint: string, data: object) => Promise<AxiosResponse>;
+  login: (email: string, password: string) => Promise<boolean>;
+  isAuthenticated: () => boolean;
+  logout: () => void;
 }
 
 // Create a context with the defined type
@@ -16,12 +21,10 @@ type ProviderProps = {
 
 const APIProvider: React.FC<ProviderProps> = ({ children }) => {
   // Initialize your API client
-  const{ post, get, login, logout, isAuthenticated } = new APIClient();
+  const api = new APIClient();
 
   return (
-    <APIContext.Provider value={{ post, get, login, logout, isAuthenticated }}>
-      {children}
-    </APIContext.Provider>
+    <APIContext.Provider value={{ ...api }}>{children}</APIContext.Provider>
   );
 };
 

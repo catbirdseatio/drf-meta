@@ -1,14 +1,10 @@
 import { useRef, useState, useEffect } from "react";
+import { validateEmail } from "../utils";
 import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import { useFlash } from "../contexts/FlashProvider";
 import { useAPI } from "../contexts/APIProvider";
 
-const validateEmail = (email: string) => {
-  // Regular expression pattern for validating email addresses
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
 
 const RegistrationPage = () => {
   const [formErrors, setFormErrors] = useState({});
@@ -22,7 +18,7 @@ const RegistrationPage = () => {
     emailField.current?.focus();
   }, []);
 
-  const submitHandler = async (event) => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const email = emailField.current?.value;
     const password = passwordField.current?.value;

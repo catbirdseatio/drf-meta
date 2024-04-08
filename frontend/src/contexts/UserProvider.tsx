@@ -1,41 +1,59 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { useAPI } from "./APIProvider";
 
-const UserContext = createContext();
+interface User {
+  email: string;
+  id: number;
+}
 
-// eslint-disable-next-line react/prop-types
-const UserProvider = ({ children }) => {
+interface UserContextType {
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => void;
+  user: User | undefined;
+}
+
+const UserContext = createContext<UserContextType | undefined>(undefined);
+
+const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const API = useAPI();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User | undefined>();
 
   // Utility function to retrieve logged in user information via /me endpoint
   const getUser = useCallback(async () => {
-    const response = await API.get("/accounts/users/me/");
-    setUser(response.status === 200 ? response.data : null);
+    try {
+      const response = await API.get("/accounts/users/me/");
+      setUser(response.status === 200 ? response.data : undefined);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
   }, [API]);
 
   useEffect(() => {
     (async () => {
-      if (API.isAuthenticated()) getUser();
-      else {
-        setUser(null);
+      if (API.isAuthenticated()) {
+        await getUser();
+      } else {
+        setUser(undefined);
       }
     })();
   }, [API, getUser]);
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     try {
       const result = await API.login(email, password);
-      if (result) getUser();
+      if (result) {
+        await getUser();
+      }
       return result;
     } catch (error) {
+      console.error("Login error:", error);
       return error;
     }
   };
 
   const logout = () => {
     API.logout();
-    setUser(null);
+    setUser(undefined);
   };
 
   return (
@@ -45,6 +63,12 @@ const UserProvider = ({ children }) => {
   );
 };
 
-export const useUser = () => useContext(UserContext);
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
+};
 
 export default UserProvider;

@@ -1,11 +1,21 @@
+import React from "react"
+
+type InputFieldProps = {
+    name: string;
+    label: string;
+    type?: string;
+    error?: string;
+    placeholder?: string;
+    fieldRef: React.MutableRefObject<HTMLInputElement | null>
+}
+
 const InputField = ({
-    // eslint-disable-next-line react/prop-types
-    name, label, type, placholder, error, fieldRef
-}) => <div>
+    name, label, type, placeholder, error, fieldRef
+}: InputFieldProps) => <div>
     <div>
         {label && <label htmlFor={name}>{label}</label>}
         <input type={type || 'text'} 
-        placeholder={placholder}
+        placeholder={placeholder}
         ref={fieldRef}
         name={name}
         />

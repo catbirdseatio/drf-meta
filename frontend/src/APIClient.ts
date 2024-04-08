@@ -1,10 +1,12 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 // Retrieve baseURL from process.env
 const baseURL = import.meta.env.VITE_API_URL;
 
 if (!baseURL) {
-  throw new Error("REACT_APP_API_URL is not defined in the environment variables.");
+  throw new Error(
+    "REACT_APP_API_URL is not defined in the environment variables."
+  );
 }
 
 const axiosInstance: AxiosInstance = axios.create({
@@ -36,9 +38,12 @@ axiosInstance.interceptors.response.use(
       // Call your endpoint to refresh the token
       const refresh = localStorage.getItem("refresh");
       try {
-        const response: AxiosResponse = await axios.post(`${baseURL}/accounts/jwt/refresh`, {
-          refresh,
-        });
+        const response: AxiosResponse = await axios.post(
+          `${baseURL}/accounts/jwt/refresh`,
+          {
+            refresh,
+          }
+        );
 
         // If refresh successful, update tokens and retry original request
         localStorage.setItem("access", response.data.access);
@@ -54,12 +59,15 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+
 export default class APIClient {
-  get = (endpoint: string): Promise<AxiosResponse> => axiosInstance.get(endpoint);
+  get = (endpoint: string): Promise<AxiosResponse> =>
+    axiosInstance.get(endpoint);
 
-  post = (endpoint: string, data: object): Promise<AxiosResponse> => axiosInstance.post(endpoint, data);
+  post = (endpoint: string, data: object): Promise<AxiosResponse> =>
+    axiosInstance.post(endpoint, data);
 
-  login = async (email: string, password: string): Promise<boolean> => {
+  login = async (email: string | undefined, password: string): Promise<boolean> => {
     // Login to user with the login endpoint. Successful login adds the
     // JWT tokens in localstorage and returns true; unsuccessful login returns
     // false.
@@ -68,21 +76,22 @@ export default class APIClient {
         email,
         password,
       });
-      console.log(response)
       const { refresh, access } = response.data;
       localStorage.setItem("refresh", refresh);
       localStorage.setItem("access", access);
       return true;
-    } catch (error) {
-      if (error.request.status === 401) return false;
-      else return false;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        if (error.request.status === 401) return false;
+        else return false;
+      } else {
+        console.log(error);
+        return false;
+      }
     }
   };
 
-  isAuthenticated = (): boolean => {
-    const token = localStorage.getItem("access");
-    return token !== null;
-  };
+  isAuthenticated = (): boolean => localStorage.getItem("access") !== null;
 
   logout = (): void => localStorage.clear();
 }
