@@ -1,18 +1,23 @@
 import { useRef, useState, useEffect } from "react";
 import { validateEmail } from "../utils";
-import { useNavigate } from "react-router-dom";
+import { ILogin } from "../@types/auth"
+import RegisterService from "../services/AuthServices/RegisterService"
 import InputField from "../components/InputField";
-import { useFlash } from "../contexts/FlashProvider";
-import { useAPI } from "../contexts/APIProvider";
+import { useNavigate } from "react-router-dom";
+import { useFlash } from "../contexts/FlashContext";
+import React from "react";
 
+type FormErrors = {
+  email?: string;
+  password?: string;
+};
 
 const RegistrationPage = () => {
-  const [formErrors, setFormErrors] = useState({});
-  const emailField = useRef<HTMLInputElement>(null);
-  const passwordField = useRef<HTMLInputElement>(null);
-  const API = useAPI();
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const { flash } = useFlash()
+  const emailField = useRef<HTMLInputElement | null>(null);
+  const passwordField = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
-  const flash = useFlash();
 
   useEffect(() => {
     emailField.current?.focus();
@@ -22,7 +27,7 @@ const RegistrationPage = () => {
     event.preventDefault();
     const email = emailField.current?.value;
     const password = passwordField.current?.value;
-    const errors = {};
+    const errors: FormErrors = {};
 
     if (!email) errors.email = "Email must not be empty.";
     if (email && !validateEmail(email)) errors.email = "Email must be valid.";
@@ -35,23 +40,25 @@ const RegistrationPage = () => {
     }
 
     try {
-      const response = await API.post("/accounts/users/", { email, password });
-      console.log(response);
-      if (response.status === 201) {
-        flash("User has been created.");
-        navigate("/login");
-      }
+        const user: ILogin = await RegisterService.post({email: email!, password: password!});
+
+        if (user) {
+          flash(`${email} has been successfully registered.`);
+          navigate("/login");
+          setFormErrors({})
+        }
     } catch (error) {
-      flash("User could not be created", "danger");
+        console.log("The user could not be registered.");
     }
   };
 
   return (
     <form onSubmit={submitHandler}>
-        <h2>Registration Form</h2>
+      <h2>Registration Form</h2>
       <InputField
         name="email"
         label="Enter email address"
+        placeholder="Email"
         error={formErrors.email}
         fieldRef={emailField}
       />
@@ -60,10 +67,11 @@ const RegistrationPage = () => {
         name="password"
         type="password"
         label="Password"
+        placeholder="Password"
         error={formErrors.password}
         fieldRef={passwordField}
       />
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
   );
 };

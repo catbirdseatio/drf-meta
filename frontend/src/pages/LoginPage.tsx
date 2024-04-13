@@ -1,22 +1,22 @@
 import { useRef, useState, useEffect } from "react";
 import { validateEmail } from "../utils";
-import { useUser } from "../contexts/UserProvider";
-import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
-import { useFlash } from "../contexts/FlashProvider";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useFlash } from "../contexts/FlashContext";
 
 type FormErrors = {
   email?: string;
   password?: string;
-}
+};
 
 const LoginPage = () => {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const emailField = useRef<HTMLInputElement| null>(null);
+  const { login } = useAuth();
+  const { flash } = useFlash()
+  const emailField = useRef<HTMLInputElement | null>(null);
   const passwordField = useRef<HTMLInputElement | null>(null);
-  const { login } = useUser();
   const navigate = useNavigate();
-  const flash = useFlash();
 
   useEffect(() => {
     emailField.current?.focus();
@@ -38,14 +38,13 @@ const LoginPage = () => {
       return;
     }
 
-    const success = await login(email, password);
+    const success: boolean = await login(email!, password!);
+
     if (success) {
-      setFormErrors({});
-      flash(`${email} has been logged in`);
+      flash(`${email} has been successfully logged in.`);
       navigate("/");
-    } else {
-      flash("Could not authenticate");
-    }
+      setFormErrors({})
+    } else flash("User could not be authenticated.");
   };
 
   return (

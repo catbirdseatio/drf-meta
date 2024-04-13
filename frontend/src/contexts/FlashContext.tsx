@@ -1,26 +1,20 @@
 import React, { createContext, useContext, useState } from "react";
-
-// Define the type for your flash message
-interface FlashMessage {
-  message: string;
-  type?: string;
-}
-
-// Define the type for your context value
-interface FlashContextType {
-  flash: (message: string, type?: string, duration?: number) => void;
-  hideFlash: () => void;
-  flashMessage: FlashMessage;
-  visible: boolean;
-}
+import { FlashContextType, IFlashMessage } from "../@types/flash";
 
 // Create a context with the defined type
-export const FlashContext = createContext<FlashContextType | undefined>(undefined);
+export const FlashContext = createContext<FlashContextType | undefined>(
+  undefined
+);
 
 let flashTimer: ReturnType<typeof setTimeout> | undefined;
 
-const FlashProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [flashMessage, setFlashMessage] = useState<FlashMessage>({ message: "", type: "" });
+const FlashProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [flashMessage, setFlashMessage] = useState<IFlashMessage>({
+    message: "",
+    type: "",
+  });
   const [visible, setVisible] = useState(false);
 
   const flash = (message: string, type: string = "info", duration = 10) => {
@@ -44,10 +38,11 @@ const FlashProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
 export default FlashProvider;
 
-export const useFlash = (): ((message: string, type?: string, duration?: number) => void) => {
+// eslint-disable-next-line react-refresh/only-export-components
+export const useFlash = () => {
   const context = useContext(FlashContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useFlash must be used within a FlashProvider");
   }
-  return context.flash;
+  return context;
 };

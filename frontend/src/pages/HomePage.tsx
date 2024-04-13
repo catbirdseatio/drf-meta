@@ -1,25 +1,17 @@
-import { useState, useEffect } from "react"
-import { useAPI} from "../contexts/APIProvider"
+import { useState, useEffect } from "react";
+import IndexService from "../services/IndexService";
+
 const HomePage = () => {
-  const [message, setMessage] = useState("")
-  const api = useAPI()
+  const [message, setMessage] = useState("");
 
-    useEffect(() => {
-      (async () => {
-        try {
-            const response = await api.get("/");
-            setMessage(response.data.message)
-        } catch(error) {
-            console.log(error)
-        }
-        
-      })()
-    }, [api])
-    
+  useEffect(() => {
+    (async () => {
+        const {message: apiMessage} = await IndexService.get();
+       setMessage(apiMessage)
+    })();
+  }, []);
 
-  return (
-    <div>{message}</div>
-  )
-}
+  return <div>{message}</div>;
+};
 
-export default HomePage
+export default HomePage;
