@@ -6,11 +6,12 @@
 - [pytest-django](https://pytest-django.readthedocs.io/en/latest/)
 - [SimpleJWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 - [React Router](https://reactrouter.com/en/main)
+- [TypeScript](https://www.typescriptlang.org/)
+
 
 Coming Soon:
 
 - [Tanstack Query](https://tanstack.com/query/latest)
-- [TypeScript](https://www.typescriptlang.org/)
 - [React Hook Form](https://react-hook-form.com/)
 - [TailwindCSS](https://tailwindcss.com/docs/guides/vite)
 
@@ -31,5 +32,5 @@ Coming Soon:
 ### Frontend
     cd frontend
     npm i
-    echo VITE_API_URL=http://127.0.0.1:8000/api >> .env
+    echo VITE_BASE_URL=http://127.0.0.1:8000/api >> .env
     npm run dev
