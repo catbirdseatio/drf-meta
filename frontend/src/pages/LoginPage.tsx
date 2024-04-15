@@ -32,6 +32,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <h2>Login</h2>
       <UserInputField
         name="email"
         placeholder="Email"
