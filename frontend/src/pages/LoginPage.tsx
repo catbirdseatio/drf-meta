@@ -1,19 +1,11 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ILogin, UserSchema } from "../@types/auth.d";
+import { SubmitHandler } from "react-hook-form";
+import { ILogin } from "../@types/auth.d";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useFlash } from "../contexts/FlashContext";
-import UserInputField from "../components/UserInputField";
+import UserForm from "../components/UserForm";
 
-const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ILogin>({
-    resolver: zodResolver(UserSchema),
-  });
+const LoginPage = () => {
   const { login } = useAuth();
   const { flash } = useFlash();
   const navigate = useNavigate();
@@ -30,28 +22,7 @@ const LoginForm = () => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>Login</h2>
-      <UserInputField
-        name="email"
-        placeholder="Email"
-        register={register}
-        label="Email"
-        error={errors.email}
-      />
-      <br />
-      <UserInputField
-        name="password"
-        type="password"
-        placeholder="Password"
-        register={register}
-        label="Password"
-        error={errors.password}
-      />
-      <button type="submit">Login</button>
-    </form>
-  );
+  return <UserForm handleOnSubmit={onSubmit} formType="Login"/>
 };
 
-export default LoginForm;
+export default LoginPage;
