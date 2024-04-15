@@ -45,10 +45,8 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       localStorage.setItem("access", access!);
       localStorage.setItem("refresh", refresh!);
       await getUser();
-      return true;
     } catch (error) {
-      console.log("Login Failed");
-      return false;
+      throw Error("Login Failed");
     }
   };
 

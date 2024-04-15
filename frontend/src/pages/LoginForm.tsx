@@ -4,7 +4,6 @@ import { ILogin, UserSchema } from "../@types/auth.d";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useFlash } from "../contexts/FlashContext";
-import UserInputField from "../components/UserInputField";
 
 const LoginForm = () => {
   const {
@@ -22,32 +21,29 @@ const LoginForm = () => {
     const { email, password } = data;
 
     try {
-      await login(email, password);
-      flash(`${email} has been logged in.`);
-      navigate("/");
+        await login(email, password)
+        flash(`${email} has been logged in.`)
+        navigate("/")
     } catch (error) {
-      flash("User could not be authenticated.");
+        flash("User could not be authenticated.")
     }
+    
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <UserInputField
-        name="email"
-        placeholder="Email"
-        register={register}
-        label="Email"
-        error={errors.email}
-      />
+      <input type="text" {...register("email")} />
+      {errors.email && (
+        <p style={{ fontSize: ".75rem", color: "red" }}>
+          {errors.email.message}
+        </p>
+      )}
       <br />
-      <UserInputField
-        name="password"
-        type="password"
-        placeholder="Password"
-        register={register}
-        label="Password"
-        error={errors.password}
-      />
+      <input type="password" {...register("password")} />
+      {errors.password && (
+        <p style={{ fontSize: ".75rem", color: "red" }}>
+          {errors.password.message}
+        </p>
+      )}
       <button type="submit">Login</button>
     </form>
   );

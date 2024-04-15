@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { validateEmail } from "../utils";
 import { ILogin } from "../@types/auth"
 import RegisterService from "../services/AuthServices/RegisterService"
-import InputField from "../components/InputField";
+import InputField from "../components/UserInputField";
 import { useNavigate } from "react-router-dom";
 import { useFlash } from "../contexts/FlashContext";
 import React from "react";
