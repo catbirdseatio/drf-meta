@@ -7,12 +7,12 @@
 - [SimpleJWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 - [React Router](https://reactrouter.com/en/main)
 - [TypeScript](https://www.typescriptlang.org/)
+- [React Hook Form](https://react-hook-form.com/)
 
 
 Coming Soon:
 
 - [Tanstack Query](https://tanstack.com/query/latest)
-- [React Hook Form](https://react-hook-form.com/)
 - [TailwindCSS](https://tailwindcss.com/docs/guides/vite)
 - [Vitest](https://vitest.dev/)
 
