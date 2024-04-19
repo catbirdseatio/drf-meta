@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, vi } from "vitest"
 import "@testing-library/jest-dom/vitest"
+import { cleanup } from '@testing-library/react';
 
-beforeEach(() =>{ vi.useFakeTimers()})
-
-afterEach(() =>{ vi.useRealTimers()})
+afterEach(() => {
+  cleanup();
+});

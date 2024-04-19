@@ -4,7 +4,6 @@ const FlashMessage = () => {
   const { flashMessage, visible, hideFlash } = useFlash();
   return (
     visible && (
-      <div>
         <div
           className={`alert alert-${flashMessage.type || "info"}`}
           role="alert"
@@ -12,7 +11,6 @@ const FlashMessage = () => {
           <button onClick={hideFlash}>x</button>
           <span>{flashMessage.message}</span>
         </div>
-      </div>
     )
   );
 };
