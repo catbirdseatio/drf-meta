@@ -1,11 +1,6 @@
-import { ComponentProps } from "react";
-import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from "react-hook-form";
+import { FieldValues, FormProvider } from "react-hook-form";
+import { IFormProps } from "../@types/form";
 
-interface FormProps<T extends FieldValues = never>
-    extends Omit<ComponentProps<'form'>, 'onSubmit'> {
-        form: UseFormReturn<T>
-        onSubmit: SubmitHandler<T>
-    }
 
 
 export const Form = <T extends FieldValues>({
@@ -13,7 +8,7 @@ export const Form = <T extends FieldValues>({
     onSubmit,
     children,
     ...props
-}: FormProps<T>) => (
+}: IFormProps<T>) => (
     <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} {...props}>
             {children}

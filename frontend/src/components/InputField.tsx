@@ -1,14 +1,9 @@
 import {  forwardRef } from 'react'
+import { IInputProps } from '../@types/form';
 import FieldError from './FieldError';
 
-interface InputProps {
-   label: string;
-   type?: string;
-   name: string;
-   placeholder?: string;
-}
 
-const InputField = forwardRef<HTMLInputElement, InputProps>(function Input(
+const InputField = forwardRef<HTMLInputElement, IInputProps>(function Input(
     { label, type = "text", ...props },
     ref
   ) {
