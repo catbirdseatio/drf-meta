@@ -24,6 +24,6 @@ export type AuthContextType = {
 
 
 export const UserSchema: ZodType<ILogin> = z.object({
-  email: z.string().email(),
-  password: z.string().min(5),
+  email: z.string().email("You must enter a valid email."),
+  password: z.string().min(5, "The password must be a minimum of 5 characters."),
 });

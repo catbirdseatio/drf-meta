@@ -25,7 +25,7 @@ const RegistrationPage = () => {
   };
 
   return (
-    <UserForm formType="Register" handleOnSubmit={onSubmit}/>
+    <UserForm formType="Register" onSubmitHandler={onSubmit}/>
   );
 };
 

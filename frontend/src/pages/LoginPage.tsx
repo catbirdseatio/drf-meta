@@ -22,7 +22,7 @@ const LoginPage = () => {
     }
   };
 
-  return <UserForm handleOnSubmit={onSubmit} formType="Login"/>
+  return <UserForm  formType="Login" onSubmitHandler={onSubmit}/>
 };
 
 export default LoginPage;

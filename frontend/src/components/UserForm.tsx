@@ -1,49 +1,38 @@
 import { FC } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ILogin, UserSchema } from "../@types/auth.d";
-import UserInputField from "../components/UserInputField";
+import { useForm } from "../hooks/useForm";
+import { UserSchema } from "../@types/auth.d"
+import { Form } from "./Form";
+import { SubmitHandler } from "react-hook-form";
+import { ILogin } from "../@types/auth.d";
+import InputField  from "./InputField";
 
-
-type UserFormProps = {
-    handleOnSubmit: SubmitHandler<ILogin>,
-    formType: "Login" | "Register"
+interface IUserFormProps {
+  formType: string;
+  onSubmitHandler: SubmitHandler<ILogin>
 }
-const UserForm: FC<UserFormProps> = ({ 
-handleOnSubmit,
-formType
-}) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ILogin>({
-    resolver: zodResolver(UserSchema),
+
+const UserForm: FC<IUserFormProps> = ({ formType, onSubmitHandler }) => {
+  const form = useForm({
+    schema: UserSchema
   });
-
-
-  return (
-    <form onSubmit={handleSubmit(handleOnSubmit)}>
-      <h2>{formType}</h2>
-      <UserInputField
-        name="email"
-        placeholder="Email"
-        register={register}
-        label="Email"
-        error={errors.email}
-      />
-      <br />
-      <UserInputField
-        name="password"
-        type="password"
-        placeholder="Password"
-        register={register}
-        label="Password"
-        error={errors.password}
-      />
-      <button type="submit">{formType}</button>
-    </form>
-  );
+  return <Form form={form}
+  onSubmit={onSubmitHandler}
+  >
+    <h2>{formType}</h2>
+    <InputField
+      label="email"
+      type="text"
+      placeholder="user@example.com"
+      {...form.register('email')}
+    />
+    <InputField
+      label="password"
+      type="password"
+      placeholder="Enter your password"
+      {...form.register('password')}
+    />
+    <button type="submit">Submit</button>
+  </Form>;
 };
 
 export default UserForm;
