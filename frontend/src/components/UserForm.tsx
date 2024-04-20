@@ -2,13 +2,9 @@ import { z } from "zod";
 import { UserSchema } from "../@types/auth.d";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { IUserFormProps } from "../@types/auth.d";
 
 type UserFormData = z.infer<typeof UserSchema>;
-
-interface IUserFormProps {
-  onSubmit: (data: UserFormData) => void;
-  formType: "Login" | "Register";
-}
 
 
 const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
@@ -18,7 +14,7 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
     reset,
     formState: { errors },
   } = useForm<UserFormData>({ resolver: zodResolver(UserSchema) });
-  
+
   return (
     <form
       onSubmit={handleSubmit((data) => {
