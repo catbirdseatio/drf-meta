@@ -7,19 +7,23 @@ import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 
 describe("FlashMessage", () => {
-  const Test = () => {
+  interface ITestProps {
+    type: string;
+  }
+
+  const Test = ({type = "danger"}: ITestProps) => {
     const { flash } = useFlash();
     useEffect(() => {
-      flash("foo", "danger");
+      flash("foo", type);
     }, []);
     return null;
   };
 
-  const renderComponent = () => {
+  const renderComponent = (type: string = "danger") => {
     render(
       <FlashProvider>
         <FlashMessage />
-        <Test />
+        <Test type={type} />
       </FlashProvider>
     );
 
@@ -30,15 +34,20 @@ describe("FlashMessage", () => {
     return { alert, button, user };
   };
 
-  it("should flash a message",async () => {
+  it.each([
+    "info",
+    "danger",
+    "success",
+    "warning"
+  ])("should flash a %s message",async (type) => {
     // NOTE: vi timer functions are not in setup.ts in beforeEach and afterEach as
     //    userEvent does not play nice with them for some reason.
     vi.useFakeTimers();
 
-    const { alert } = renderComponent();
+    const { alert } = renderComponent(type);
     expect(alert).toBeInTheDocument();
     expect(alert).toHaveTextContent("foo");
-    expect(alert).toHaveClass("alert-danger");
+    expect(alert).toHaveClass(`alert-${type}`);
 
     act(() => {vi.runAllTimers()
     });
