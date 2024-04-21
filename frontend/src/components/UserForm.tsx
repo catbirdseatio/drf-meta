@@ -1,41 +1,34 @@
-import { z } from "zod";
 import { UserSchema } from "../@types/auth.d";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { IUserFormProps } from "../@types/auth.d";
-
-type UserFormData = z.infer<typeof UserSchema>;
+import { Form, useForm} from "./Form";
 
 
 const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UserFormData>({ resolver: zodResolver(UserSchema) });
+  const form = useForm({
+    schema: UserSchema
+  });
+
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        onSubmit(data);
-        reset();
-      })}
+    <Form
+      form={form}
+      onSubmit={(values) => {
+        onSubmit(values)
+        form.reset()
+      }}
     >
       <h2>{formType}</h2>
-      <>
-        <label htmlFor="email">Email</label>
-        <input type="text" {...register("email")} />
-        {errors["email"] && <span>{errors["email"].message}</span>}
-      </>
+      <div>
+      <label htmlFor="email">email</label>
+        <input type="text" {...form.register("email")} />
+      </div>
       <br />
-      <>
+      <div>
         <label htmlFor="password">password</label>
-        <input type="password" {...register("password")} />
-        {errors["password"] && <span>{errors["password"].message}</span>}
-      </>
+        <input type="password" {...form.register("password")} />
+      </div>
       <button type="submit">{formType}</button>
-    </form>
+    </Form>
   );
 };
 
