@@ -24,24 +24,19 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
       })}
     >
       <h2>{formType}</h2>
-      <>
-        <TextArea
-          fieldName="email"
-          label="Email"
-          {...register("email")}
-          error={errors.email}
-        />
-      </>
-      <br />
-      <>
-        <Input
-          fieldName="password"
-          label="password"
-          {...register("password")}
-          type="password"
-          error={errors.password}
-        />
-      </>
+      <TextArea
+        fieldName="email"
+        label="Email"
+        {...register("email")}
+        error={errors.email}
+      />
+      <Input
+        fieldName="password"
+        label="password"
+        {...register("password")}
+        type="password"
+        error={errors.password}
+      />
       <button type="submit">{formType}</button>
     </form>
   );
