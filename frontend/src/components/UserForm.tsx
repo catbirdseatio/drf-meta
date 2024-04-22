@@ -3,10 +3,10 @@ import { UserSchema } from "../@types/auth.d";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IUserFormProps } from "../@types/auth.d";
+import TextArea from "./TextArea";
 import Input from "./Input";
 
 type UserFormData = z.infer<typeof UserSchema>;
-
 
 const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
   const {
@@ -25,13 +25,22 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
     >
       <h2>{formType}</h2>
       <>
-       <Input fieldName="email" label="Email" {...register("email")} />
-        {errors["email"] && <span>{errors["email"].message}</span>}
+        <TextArea
+          fieldName="email"
+          label="Email"
+          {...register("email")}
+          error={errors.email}
+        />
       </>
       <br />
       <>
-      <Input fieldName="password" label="password" {...register("password")} type="password" />
-        {errors["password"] && <span>{errors["password"].message}</span>}
+        <Input
+          fieldName="password"
+          label="password"
+          {...register("password")}
+          type="password"
+          error={errors.password}
+        />
       </>
       <button type="submit">{formType}</button>
     </form>
