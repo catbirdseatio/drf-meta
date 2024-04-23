@@ -19,6 +19,7 @@ export type AuthContextType = {
   user: IUser | undefined;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  isLoading: boolean;
 };
 
 export const UserSchema: ZodType<ILogin> = z.object({

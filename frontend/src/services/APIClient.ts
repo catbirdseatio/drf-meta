@@ -52,6 +52,7 @@ axiosInstance.interceptors.response.use(
       if (!tokenStorage.refresh) {
         // Handle the case where refresh token is not available, redirect to login or handle as needed
         console.error("Refresh token is not available");
+        localStorage.clear()
         return Promise.reject(error);
       }
 

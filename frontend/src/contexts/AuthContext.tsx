@@ -1,40 +1,33 @@
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useState,
-  useEffect,
-  useContext,
-} from "react";
-import { IUser, AuthContextType } from "../@types/auth";
+import { createContext, FC, ReactNode, useCallback, useContext } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query"; // Import useQueryClient hook
+import { AuthContextType } from "../@types/auth";
 import LoginService from "../services/AuthServices/LoginService";
-import { isAuthenticated, logout as utilsLogout } from "../utils";
+import { logout as utilsLogout, isAuthenticated } from "../utils";
 import UserService from "../services/AuthServices/UserService";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<IUser | undefined>(undefined);
+  const navigate = useNavigate()
+  // Remove the 'user' state
 
   const getUser = useCallback(async () => {
     try {
       const userResponse = await UserService.get();
-      setUser(userResponse);
+      return userResponse;
     } catch (error) {
-      console.error("Error fetching user:", error);
+      throw new Error("Error fetching user");
     }
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (isAuthenticated()) {
-        await getUser();
-      } else {
-        setUser(undefined);
-      }
-    })();
-  }, [getUser]);
+  // Refactor the useEffect to useQuery for fetching user data
+  const query = useQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+    staleTime: 1000,
+    enabled: isAuthenticated(),
+  });
 
   const login = async (email: string, password: string) => {
     try {
@@ -44,19 +37,23 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
       });
       localStorage.setItem("access", access!);
       localStorage.setItem("refresh", refresh!);
-      await getUser();
+      // Invalidate the user query cache to trigger a refetch
+      
+      query.refetch();
     } catch (error) {
-      throw Error("Login Failed");
+      throw new Error("Login Failed");
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     utilsLogout();
-    setUser(undefined);
+    navigate("/login")
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{ login, logout, user: query.data, isLoading: query.isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );
