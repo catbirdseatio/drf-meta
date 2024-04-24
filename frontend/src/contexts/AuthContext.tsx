@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useContext,
+  useMemo,
 } from "react";
 import { IUser, AuthContextType } from "../@types/auth";
 import LoginService from "../services/AuthServices/LoginService";
