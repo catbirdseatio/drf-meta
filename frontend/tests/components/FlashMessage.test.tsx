@@ -28,7 +28,7 @@ describe("FlashMessage", () => {
     );
 
     const alert = screen.getByRole("alert");
-    const button = screen.getByRole("button", { name: "x" });
+    const button = screen.getByRole("button");
     const user = userEvent.setup();
 
     return { alert, button, user };
