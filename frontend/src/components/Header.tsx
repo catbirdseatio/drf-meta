@@ -5,7 +5,7 @@ const Header = () => {
   const { user, logout } = useAuth();
   return (
     <nav className="col-span-12 h-[3.75rem] bg-green-400 px-4 flex justify-between items-center space-around">
-      <h2>DRF Meta</h2>
+      <h2 className="text-2xl">DRF Meta</h2>
       <div className="flex gap-4">
       {user ? (
         <>

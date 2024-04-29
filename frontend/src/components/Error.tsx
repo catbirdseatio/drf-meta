@@ -5,7 +5,7 @@ export interface ErrorProps {
 }
 
 const Error = ({ error }: ErrorProps) => {
-  return <>{error && <span style={{ color: "red", fontSize: ".75rem"}}>{error.message}</span>}</>;
+  return <>{error && <span className="text-red-500 text-xs italic mt-2">{error.message}</span>}</>;
 };
 
 export default Error;

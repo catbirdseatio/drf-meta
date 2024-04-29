@@ -63,6 +63,7 @@ axiosInstance.interceptors.response.use(
 
         // If refresh successful, update tokens and retry original request
         localStorage.setItem("access", response.data.access || "");
+        localStorage.setItem("refresh", response.data.refresh || "");
         originalRequest.headers = originalRequest.headers || {}; // Ensure headers exist
         originalRequest.headers.Authorization = `JWT ${response.data.access}`;
         console.log("Tokens refreshed.")
