@@ -8,6 +8,9 @@ const Layout = () => (
     <main className="flex col-span-12 h-[calc(100vh-3.75rem)] justify-center items-center bg-gradient-to-br from-#FF5733 to-#DAF7A6">
       <Outlet />
     </main>
+    <footer>
+      <p>&copy; catbirdseat.io</p>
+    </footer>
   </div>
 );
 

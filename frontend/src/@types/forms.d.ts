@@ -9,4 +9,5 @@ export interface ITextAreaProps {
   label: string;
   fieldName: string;
   error?: FieldError;
+  rows?: number
 }
