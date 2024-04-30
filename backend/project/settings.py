@@ -24,6 +24,9 @@ CORS_ALLOWED_ORIGINS = env.list(
     default=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        # Settings for running preview
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
     ],
 )
 
@@ -166,3 +169,9 @@ DJOSER = {
     "user_create": "apps.accounts.serializers.UserCreateSerializer",
     "USER_CREATE_PASSWORD_RETYPE": False,
 }
+
+# Settings for debug mode
+if DEBUG:
+    pass
+else:
+    pass
