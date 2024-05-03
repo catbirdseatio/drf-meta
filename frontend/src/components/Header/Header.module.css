@@ -1,0 +1,42 @@
+nav {
+    background-color: red;
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* nav a {
+    font-size: 2rem;
+} */
+
+nav > a {
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+.hamburger {
+    display: none;
+}
+
+.mobileNavLinks a {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+@media screen and (max-width: 36rem) {
+    body {
+      background-color: olive;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .navLinks {
+        display: none;
+    }
+  }

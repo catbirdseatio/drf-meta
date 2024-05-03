@@ -8,8 +8,8 @@ const baseInputClasses = "textarea shadow appearance-none border rounded w-full 
 
 const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
   ({ label, fieldName, error, rows = 4, ...props }: ITextAreaProps, ref) => (
-    <div className="grid grid-flow-row">
-      <label htmlFor={fieldName} className="block text-gray-700 text-sm font-bold mb-2">{label}</label>
+    <div >
+      <label htmlFor={fieldName} >{label}</label>
       <textarea ref={ref} rows={rows} {...props} className={error ? `${baseInputClasses} border border-red-500` : baseInputClasses}/>
       <Error error={error} />
     </div>

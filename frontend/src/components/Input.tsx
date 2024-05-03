@@ -6,8 +6,8 @@ const baseInputClasses = "form-input shadow appearance-none border rounded w-ful
 
 const Input = forwardRef<HTMLInputElement, IInputProps>(
   ({ label, type = "text", fieldName, error, ...props }: IInputProps, ref) => (
-    <div className="grid grid-flow-row">
-      <label htmlFor={fieldName} className="text-gray-700 text-sm font-bold mb-2">{label}</label>
+    <div >
+      <label htmlFor={fieldName} >{label}</label>
       <input type={type} ref={ref} {...props} className={error ? `${baseInputClasses} border border-red-500` : baseInputClasses}/>
       <Error error={error} />
     </div>

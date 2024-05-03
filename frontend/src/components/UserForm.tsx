@@ -21,10 +21,10 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
         onSubmit(data);
         reset();
       })}
-      className="w-full max-w-sm bg-white shadow-md rounded px-8 pt-6 pb-8 m-4"
+      
     >
-      <div className="mb-3">
-        <h2 className="text-4xl font-bold text-center">{formType}</h2>
+      <div >
+        <h2 >{formType}</h2>
         <Input
           fieldName="email"
           label="Email"
@@ -32,7 +32,7 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
           error={errors.email}
         />
       </div>
-      <div className="mb-4">
+      <div >
         <Input
           fieldName="password"
           label="password"
@@ -41,7 +41,7 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
           error={errors.password}
         />
       </div>
-      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{formType}</button>
+      <button type="submit" >{formType}</button>
     </form>
   );
 };
