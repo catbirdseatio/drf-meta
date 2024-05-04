@@ -22,9 +22,9 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
         reset();
       })}
       
-    >
-      <div >
-        <h2 >{formType}</h2>
+  >
+      <div>
+        <h2>{formType}</h2>
         <Input
           fieldName="email"
           label="Email"
@@ -32,7 +32,7 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
           error={errors.email}
         />
       </div>
-      <div >
+      <div>
         <Input
           fieldName="password"
           label="password"
@@ -41,7 +41,7 @@ const UserForm = ({ onSubmit, formType }: IUserFormProps) => {
           error={errors.password}
         />
       </div>
-      <button type="submit" >{formType}</button>
+      <button type="submit">{formType}</button>
     </form>
   );
 };

@@ -2,10 +2,9 @@ import { Outlet } from "react-router-dom";
 import Header from "../Header";
 import FlashMessage from "../FlashMessage";
 
-import styles from "./Layout.module.css";
 
 const Layout = () => (
-  <div className={styles.layout}>
+  <div>
     <Header />
     <FlashMessage />
     <main>

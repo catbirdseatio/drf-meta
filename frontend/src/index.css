@@ -1,8 +1,13 @@
+:root {
+  --height-header: 8rem;
+  --height-footer: 8rem;
+}
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html,
 body {
@@ -12,28 +17,33 @@ body {
 }
 
 html {
-    /* 10px */
-    font-size: 62.5%;
-  }
-  
-  body {
-    /* 16px */
-    font-size: 1.6rem;
-  }
+  /* 10px */
+  font-size: 62.5%;
+}
 
-  a {
-    color: #fff;
-  }
+body {
+  /* 16px */
+  font-size: 1.6rem;
+}
 
-  a:link { 
-    text-decoration: none; 
-  } 
-  a:visited { 
-    text-decoration: none; 
-  } 
-  a:hover { 
-    text-decoration: none; 
-  } 
-  a:active { 
-    text-decoration: none; 
-  }
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+
+/* Footer Styles */
+footer {
+  display: flex;
+  height: var(--height-footer);
+  border: 1px solid red;
+}
+
+/* Main Styles */
+main {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - var(--height-footer) - var(--height-header));
+}

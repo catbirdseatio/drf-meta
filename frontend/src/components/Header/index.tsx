@@ -1,27 +1,28 @@
 import { useState } from "react";
 import { Divide as Hamburger } from "hamburger-react";
 import { Link } from "react-router-dom";
-import NavLinks from "../NavLinks";
+import NavMenu from "../NavMenu";
 
-import styles from "./Header.module.css"
+import "./Header.css"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  
   return (
     <>
-      <nav className={styles.nav}>
+      <nav>
         <h2>
           <Link to="/">DRF Meta</Link>
         </h2>
-        <div className={styles.navLinks}>
-          <NavLinks />
+        <div className="menu">
+          <NavMenu />
         </div>
-        <div className={styles.hamburger}>
+        <div className="hamburger">
           <Hamburger toggled={isOpen} toggle={setIsOpen} size={25} />
         </div>
       </nav>
-      <div className={styles.mobileNavLinks}>
-        {isOpen && <NavLinks />}
+      <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
+        {isOpen && <NavMenu />}
       </div>
     </>
   );

@@ -1,0 +1,53 @@
+/* Nav styles */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--height-header);
+    border: 1px solid red;
+    border-collapse: collapse;
+    padding: 1rem;
+}
+
+nav .hamburger {
+    display: none;
+}
+
+nav .menu {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+@media only screen and (max-width: 700px) {
+    nav .hamburger {
+        display: block;
+    }
+
+    nav .menu {
+        display: none;
+    }
+}
+
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+    font-size: 2rem;
+    gap: 1rem;
+    /* Transition style */
+    transition: all 1s ease;
+    /* Smooth transition for all properties over 0.3 seconds */
+    max-height: 0;
+    /* Initially hide the menu */
+    overflow: hidden;
+    /* Hide any overflow content */
+}
+
+.mobile-menu.open {
+    max-height: 50vh;
+  }
+
+.mobile-menu a {
+    padding: .5rem;
+}
