@@ -14,14 +14,16 @@ const Header = () => {
         <h2>
           <Link to="/">DRF Meta</Link>
         </h2>
-        <div className="menu">
+        <div className="menu" data-testid="menu">
           <NavMenu />
         </div>
         <div className="hamburger">
           <Hamburger toggled={isOpen} toggle={setIsOpen} size={25} />
         </div>
       </nav>
-      <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
+      <div className={`mobile-menu ${isOpen ? 'open' : ''}`}
+       data-testid="mobile-menu"
+      >
         {isOpen && <NavMenu />}
       </div>
     </>

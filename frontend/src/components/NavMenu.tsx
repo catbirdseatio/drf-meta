@@ -8,7 +8,7 @@ const NavMenu = () => {
     <>
           {user ? (
             <>
-              <p>{user.email}</p>
+              <p data-testid="user-email">{user.email}</p>
               <a onClick={() => logout()}>Logout</a>
             </>
           ) : (
