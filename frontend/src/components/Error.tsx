@@ -5,7 +5,7 @@ export interface ErrorProps {
 }
 
 const Error = ({ error }: ErrorProps) => {
-  return <>{error && <span >{error.message}</span>}</>;
+  return <>{error && <span>{error.message}</span>}</>;
 };
 
 export default Error;

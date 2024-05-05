@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useFlash } from "../contexts/FlashContext";
 import UserForm from "../components/UserForm";
+import FlexContainer from "../components/FlexContainer";
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -18,11 +19,14 @@ const LoginPage = () => {
       flash(`${email} has been logged in.`);
       navigate("/");
     } catch (error) {
-      flash("User could not be authenticated.");
+      flash("User could not be authenticated.", "danger");
     }
   };
 
-  return <UserForm  formType="Login" onSubmit={onSubmit}/>
+  return (
+    <FlexContainer>
+      <UserForm formType="Login" onSubmit={onSubmit} />
+    </FlexContainer>)
 };
 
 export default LoginPage;

@@ -1,27 +1,17 @@
-import { useFlash } from "../../contexts/FlashContext";
-import { LuInfo as Info } from "react-icons/lu";
+import { FaXmark as Icon } from "react-icons/fa6";
+import { useFlash } from '../../contexts/FlashContext'
 
-import { LuX as ButtonIcon } from "react-icons/lu";
-
-
+import "./FlashMessage.css"
 
 const FlashMessage = () => {
   const { flashMessage, visible, hideFlash } = useFlash();
   return (
-    visible && (
-      <div role="alert">
-        <Info />
-  <span >Info</span>
-  <div >{flashMessage.message}</div>
-    <button type="button" id="alert-1"  data-dismiss-target="#alert-1" aria-label="Close"
-    onClick={hideFlash}
-    >
-      <span >Close</span>
-      <ButtonIcon size={48}/>
-  </button>
-</div>
-    )
-  );
-};
+    visible &&
+    <div className={`alert alert-${flashMessage.type || 'info'}`} role='alert'>
+      <span>{flashMessage.message}</span>
+      <button onClick={hideFlash}><Icon size={32} /></button>
+    </div>
+  )
+}
 
-export default FlashMessage;
+export default FlashMessage

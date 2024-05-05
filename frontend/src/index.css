@@ -34,6 +34,14 @@ a:active {
 }
 
 
+form {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
 /* Footer Styles */
 footer {
   display: flex;
