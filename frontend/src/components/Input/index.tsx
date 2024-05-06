@@ -8,7 +8,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
   ({ label, type = "text", fieldName, error, ...props }: IInputProps, ref) => (
     <div className={styles.formField}>
       <label htmlFor={fieldName}>{label}</label>
-      <input type={type} ref={ref} {...props} />
+      <input type={type} ref={ref} {...props} data-testid={fieldName} />
       <Error error={error} />
     </div>
   )
