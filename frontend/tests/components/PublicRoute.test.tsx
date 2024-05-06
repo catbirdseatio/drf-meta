@@ -9,7 +9,6 @@ const mockAuthUser = {
 
 
 const mocks = vi.hoisted(() => ({ useAuth: vi.fn() }))
-// Mock AuthProvider to provide a user object
 
 
 vi.mock('../../src/contexts/AuthContext', () => ({

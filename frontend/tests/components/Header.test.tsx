@@ -25,7 +25,7 @@ describe('Header', () => {
     </Router>);
 
     const button = screen.getByRole("button");
-    const brand = screen.getByText(/drf meta/i);
+    const brand = screen.getByRole("heading")
     const mobileMenu = screen.getByTestId("mobile-menu")
     const menu = screen.getByTestId("menu")
     const email = screen.queryByTestId("user-email")
@@ -39,6 +39,7 @@ describe('Header', () => {
     const { button, brand } = renderComponent()
     expect(brand).toBeInTheDocument()
     expect(button).toBeInTheDocument()
+    expect(brand).toHaveTextContent(/drf meta/i)
   })
 
   it('should toggle the menu', async () => {
@@ -59,7 +60,7 @@ describe('Header', () => {
     renderComponent()
     const email = screen.getByTestId("user-email")
     expect(email).toBeInTheDocument()
-    expect(email).toHaveTextContent("test@example.com")
+    expect(email).toHaveTextContent(mockUseAuth.user.email)
   })
 
   it('should display logout button', () => {
@@ -90,7 +91,7 @@ describe('Header', () => {
     expect(menu).toHaveTextContent(/register/i)
   })
 
-  it('should not display users email', async () => {
+  it('unauthenticated user should not display users email', async () => {
     mocks.useAuth.mockReturnValue({ ...mockUseAuth, user: undefined })
     const { email } = renderComponent()
     expect(email).toBeNull()

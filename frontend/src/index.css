@@ -34,14 +34,6 @@ a:active {
 }
 
 
-form {
-  border: 1px solid red;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-
 /* Footer Styles */
 footer {
   display: flex;
@@ -54,4 +46,5 @@ main {
   display: flex;
   flex-direction: row;
   min-height: calc(100vh - var(--height-footer) - var(--height-header));
+  background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
 }

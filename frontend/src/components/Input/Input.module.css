@@ -1,0 +1,30 @@
+.formField {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    align-items: center;
+    gap: .5rem;
+    width: 100%;
+}
+
+.formField label {
+    font-weight: 600;
+    justify-self: end;
+
+}
+
+.formField input {
+    font-size: 2rem;
+    padding: .75rem 1.25rem;
+    border: 1px solid gainsboro;
+    border-radius: .25rem;
+}
+
+.formField span {
+    grid-column: 2 / 5;
+    color: red;
+    font-size: 1rem;
+}
+
+.formField input:focus {
+    border: 2px solid cornflowerblue;
+}
