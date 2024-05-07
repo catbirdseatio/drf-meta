@@ -16,7 +16,7 @@ const LoginPage = () => {
 
     try {
       await login(email, password);
-      flash(`${email} has been logged in.`);
+      flash(`${email} has been logged in.`, "success");
       navigate("/");
     } catch (error) {
       flash("User could not be authenticated.", "danger");

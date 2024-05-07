@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
 import { ITokenStorage } from "../@types/auth";
 
 // Retrieve baseURL from process.env
-const baseURL: string | undefined = import.meta.env.VITE_BASE_URL;
+export const baseURL: string | undefined = import.meta.env.VITE_BASE_URL;
 
 if (!baseURL) {
   throw new Error(

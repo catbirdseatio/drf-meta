@@ -50,6 +50,7 @@ nav .menu {
         /* Initially hide the menu */
         overflow: hidden;
         /* Hide any overflow content */
+        background-color: gainsboro;
     }
     
     .mobile-menu.open {

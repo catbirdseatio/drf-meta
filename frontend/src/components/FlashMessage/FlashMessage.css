@@ -4,7 +4,7 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    border-radius: 1årem;
+    border-radius: 1rem;
     padding: 1rem;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .alert-success {
-  background-color: #EFE;
+  background-color: lightblue;
   border: 1px solid #DED;
   color: #9A9;
 }
