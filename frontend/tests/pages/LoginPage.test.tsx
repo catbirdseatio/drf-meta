@@ -51,6 +51,8 @@ describe('LoginPage', () => {
             const alert = screen.getByRole("alert")
             expect(alert).toHaveTextContent("user@example.com has been logged in.")
             expect(screen.getByText(/hello world/i)).toBeInTheDocument()
+            expect(localStorage.getItem("access")).toBe("msw-access-token")
+            expect(localStorage.getItem("refresh")).toBe("msw-refresh-token")
         })
     })
 

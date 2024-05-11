@@ -43,13 +43,9 @@ nav .menu {
         flex-direction: column;
         font-size: 2rem;
         gap: 1rem;
-        /* Transition style */
         transition: all 1s ease;
-        /* Smooth transition for all properties over 0.3 seconds */
         max-height: 0;
-        /* Initially hide the menu */
         overflow: hidden;
-        /* Hide any overflow content */
         background-color: gainsboro;
     }
     
